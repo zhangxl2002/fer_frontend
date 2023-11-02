@@ -18,18 +18,34 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     data(){
         return {
             email: '',
             name: '',
             password: '',
-            passwordError: ''
+            passwordError: '',
+            signError: ''
         }
     },
     methods: {
-        handleSubmit() {
-            this.passwordError = this.password.length > 5 ? '' : 'Password must be at least 6 chars long'
+        async handleSubmit() {
+            const formData = {
+                email: this.email,
+                name: this.name,
+                password: this.password
+            }
+            try {
+                const response = await axios.post("http://localhost:8100/api/v1/auth/register", formData);
+            } catch (error) {
+                this.signupError = '注册失败，请重试'
+                console.error("注册失败: ", error);
+            }
+            if (this.signError === null) {
+                console.error("注册成功")
+                this.$
+            }
         },
         handleClose() {
             this.$emit('close')

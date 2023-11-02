@@ -43,9 +43,20 @@
         }
         const formData = new FormData();
         formData.append("file", this.selectedFile);
+
+        const userId = localStorage.getItem('userId');
+        const token = localStorage.getItem('token')
+        const api = axios.create({
+          baseURL: 'http://localhost:8100', // 替换成你的API URL
+          headers: {
+            'Authorization': `Bearer ${token}`, // 将token添加到请求头中
+            // 'Content-Type': 'multipart/form-data',
+          }
+        });
+
         try {
           // 发送文件到服务器的逻辑
-          const response = await axios.post("/upload", formData);
+          const response = await api.post(`/api/v1/users/${userId}/image`, formData);
           // 上传成功后，清空
           this.selectedFile = null
           this.image = null
