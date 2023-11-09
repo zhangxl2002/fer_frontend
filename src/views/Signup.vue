@@ -26,7 +26,8 @@ export default {
             name: '',
             password: '',
             passwordError: '',
-            signError: ''
+            signError: '',
+            response: null
         }
     },
     methods: {
@@ -37,14 +38,20 @@ export default {
                 password: this.password
             }
             try {
-                const response = await axios.post("http://localhost:8100/api/v1/auth/register", formData);
+                this.response = await axios.post("http://localhost:8100/api/v1/auth/register", formData);
             } catch (error) {
                 this.signupError = '注册失败，请重试'
                 console.error("注册失败: ", error);
+                alert("注册失败")
             }
-            if (this.signError === null) {
+            {
                 console.error("注册成功")
-                this.$
+                alert("注册成功")
+                localStorage.setItem("token",this.response.data.token);
+                localStorage.setItem("userId",this.response.data.userId);
+                localStorage.setItem("name",this.response.data.name);
+                this.$emit('close')
+                location.reload();
             }
         },
         handleClose() {

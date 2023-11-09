@@ -1,16 +1,17 @@
 <template>
-    <div class="flex-container">
-        <div class="left-section">
+    <div class="flex-container" data-v-sticky-containe>
+        <div class="left-section" v-if="names">
             <div v-for="name in names" :key="name" class="item">
                 <p> {{name}} </p>
                 <button @click="handlePreview(name)"> preview </button>
             </div>
         </div>
 
+        <!-- <div class="right-section" v-sticky="{zIndex: 100, stickyTop: 10, disabled: false}"> -->
         <div class="right-section">
             <div class="right-aligned-image">
                 <img v-if="imageUrl" :src="imageUrl" alt="Image" />
-                <button @click="recognizeImage">识别图片</button>
+                <button @click="recognizeImage" v-if="imageUrl">识别图片</button>
                 <p v-if="recognizeResult">识别结果: {{recognizeResult}}</p>
             </div>
         </div>
@@ -21,6 +22,7 @@
 
 <script>
 import axios from 'axios';
+import VueStickyDirective from 'vue-sticky'
 export default {
     data() {
         return {
@@ -31,6 +33,10 @@ export default {
             recognizeResponse: null,
             recognizeResult: ""
         }
+
+    },
+    directives: {
+        "sticky": VueStickyDirective
     },
     async mounted() {
         //在挂载前发送请求，将该用户所有的图片加载进来
@@ -90,9 +96,7 @@ export default {
                 console.error("表情识别失败")
                 return
             }
-            if (this.recognizeResponse.status >= 200 && this.recognizeResponse.status < 300) {
-                this.recognizeResult = emotionMap.get(this.recognizeResponse.data)
-            }
+            this.recognizeResult = emotionMap.get(this.recognizeResponse.data)
         }
     }
 }
@@ -120,13 +124,14 @@ export default {
      .left-section {
         flex: 1; /* 左侧部分占满可用宽度 */
     }
-    .middle-section {
-
-    }
     .right-section {
         flex: 1; /* 右侧部分占满可用宽度 */
         display: flex;
-        align-items: center;
+        /* align-items: center; */
+        align-self: flex-start;
+        z-index: 100;
         justify-content: center;
+        position: sticky;
+        top: 100px;
     }
 </style>

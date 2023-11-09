@@ -45,12 +45,18 @@ export default {
             } catch (error) {
                 this.loginError = '登录失败，请重试'
                 console.error("登录失败: ", error);
+                alert("登录失败")
+                return
             }
-            if (this.response.status >= 200 && this.response.status < 300 ) {
+            {
                 console.log("登录成功")
+                alert("登录成功")
                 // this.globalData.token = this.response.data.token
                 localStorage.setItem("token",this.response.data.token);
                 localStorage.setItem("userId",this.response.data.userId);
+                localStorage.setItem("name",this.response.data.name);
+                this.$emit('close')
+                location.reload();
             }
         },
         handleClose() {

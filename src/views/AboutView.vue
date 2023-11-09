@@ -1,8 +1,8 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>上传图片</h1>
     <input type="file" @change="chooseFile" multiple >
-    <button @click="uploadImages">上传图片</button>
+    <button @click="uploadImages">存储图片</button>
     <button @click="recognizeImage">识别图片</button>
     <p v-if="recognizeResult">{{recognizeResult}}</p>
     <div v-if="images">
@@ -30,7 +30,7 @@
         const files = event.target.files
         for (let i = 0; i < files.length; i++) {
           const file = files[i];        
-          if (file.type !== 'image/jpeg') {
+          if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
             continue;
           }
           this.selectedFiles.push(file);
@@ -73,16 +73,13 @@
           this.recognizeResponse = await axios.post("http://localhost:8000/api/v1/upload/",formData)
         } catch (error) {
           console.error("表情识别失败")
+          return
         }
-        if (this.recognizeResponse.status >= 200 && this.recognizeResponse.status < 300) {
+         {
           this.recognizeResult = emotionMap.get(this.recognizeResponse.data)
         }
       },
       async uploadImages() {
-
-
-
-        /////////////////////
         if (this.images.length == 0) {
           console.log("选中的文件中不包含图片")
           return

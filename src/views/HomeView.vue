@@ -1,9 +1,8 @@
 <template>
   <div>
-    <h1>the home page</h1>  
-    <p v-if="token">{{token}}</p>
-    <!-- <p>{{globalData.token}}</p> -->
-    <!-- <button @click="handleClick"> show token </button> -->
+    <h1>Facial Expression Recognition</h1>  
+    <p v-if="name">Welcome!{{ name }}</p>
+    <img src="../assets/hf.jpg" alt="">
   </div>
 
 </template>
@@ -20,7 +19,8 @@ export default {
   },
   data() {
     return {
-      token: localStorage.getItem("token")
+      token: localStorage.getItem("token"),
+      name: localStorage.getItem("name")
     }
   },
   mounted() {
