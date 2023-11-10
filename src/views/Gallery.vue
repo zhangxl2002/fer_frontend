@@ -1,9 +1,9 @@
 <template>
     <div class="flex-container" data-v-sticky-containe>
         <div class="left-section" v-if="names">
-            <div v-for="name in names" :key="name" class="item">
+            <div v-for="name in names" :key="name" class="item" @click="handlePreview(name)">
                 <p> {{name}} </p>
-                <button @click="handlePreview(name)"> preview </button>
+                <!-- <button @click="handlePreview(name)"> preview </button> -->
             </div>
         </div>
 
@@ -44,7 +44,7 @@ export default {
         const userId = localStorage.getItem('userId')
         const token = localStorage.getItem('token')
         const api = axios.create({
-            baseURL: 'http://localhost:8100', // 替换成你的API URL
+            baseURL: 'http://10.250.218.180:8100', // 替换成你的API URL
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -61,10 +61,11 @@ export default {
     },
     methods: {
         async handlePreview(name) {
+            this.recognizeResult = ""
             const userId = localStorage.getItem('userId')
             const token = localStorage.getItem('token')
             const api = axios.create({
-                baseURL: 'http://localhost:8100', // 替换成你的API URL
+                baseURL: 'http://10.250.218.180:8100', // 替换成你的API URL
                 headers: {
                 'Authorization': `Bearer ${token}`
                 }
@@ -91,7 +92,7 @@ export default {
             const formData = new FormData();
             formData.append('file',this.image)
             try {
-                this.recognizeResponse = await axios.post("http://localhost:8000/api/v1/upload/",formData)
+                this.recognizeResponse = await axios.post("http://10.249.8.158:8000/api/v1/upload/",formData)
             } catch (error) {
                 console.error("表情识别失败")
                 return
@@ -112,8 +113,8 @@ export default {
         margin-top: 10px; /* 可选的外边距 */
         border: 0;
         background: grey;
-        padding: 10px 20px;
-        margin: 20px;
+        padding: 5px 10px;
+        margin: 1px;
         color: white;
         border-radius: 10px;
     }

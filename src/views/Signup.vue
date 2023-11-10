@@ -38,7 +38,7 @@ export default {
                 password: this.password
             }
             try {
-                this.response = await axios.post("http://localhost:8100/api/v1/auth/register", formData);
+                this.response = await axios.post("http://10.250.218.180:8100/api/v1/auth/register", formData);
             } catch (error) {
                 this.signupError = '注册失败，请重试'
                 console.error("注册失败: ", error);

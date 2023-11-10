@@ -6,9 +6,9 @@
     </div>
 
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/gallery">Gallery</router-link> 
+      <router-link to="/">欢迎页</router-link> |
+      <router-link to="/about">图片上传</router-link> |
+      <router-link to="/gallery">我的图片</router-link> 
       <!-- <router-link :to="{name: 'login'}"> Login </router-link>  -->
     </nav>
 

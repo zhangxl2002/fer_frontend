@@ -70,7 +70,7 @@
         const formData = new FormData();
         formData.append('file',this.selectedFiles[0])
         try {
-          this.recognizeResponse = await axios.post("http://localhost:8000/api/v1/upload/",formData)
+          this.recognizeResponse = await axios.post("http://10.249.8.158:8000/api/v1/upload/",formData)
         } catch (error) {
           console.error("表情识别失败")
           return
@@ -90,7 +90,7 @@
           const formData = new FormData();
           formData.append('file',this.selectedFiles[i]) //这里一定得是文件形式
           const api = axios.create({
-            baseURL: 'http://localhost:8100', // 替换成你的API URL
+            baseURL: 'http://10.250.218.180:8100', // 替换成你的API URL
             headers: {
               'Authorization': `Bearer ${token}`, // 将token添加到请求头中
               // 'Content-Type': 'multipart/form-data',

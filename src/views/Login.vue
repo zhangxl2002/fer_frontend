@@ -41,7 +41,7 @@ export default {
                 password: this.password
             }
             try {
-                this.response = await axios.post("http://localhost:8100/api/v1/auth/authenticate", formData);
+                this.response = await axios.post("http://10.250.218.180:8100/api/v1/auth/authenticate", formData);
             } catch (error) {
                 this.loginError = '登录失败，请重试'
                 console.error("登录失败: ", error);
